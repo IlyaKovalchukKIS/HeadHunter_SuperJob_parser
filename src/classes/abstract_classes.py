@@ -15,9 +15,9 @@ class API(ABC):
 class Saver(ABC):
 
     @abstractmethod
-    def to_json(self, vacancies: list):
+    def to_json(self):
         pass
 
     @abstractmethod
-    def del_vacancies(self, index: int, vacancies: list):
+    def del_vacancies(self, index: int):
         pass

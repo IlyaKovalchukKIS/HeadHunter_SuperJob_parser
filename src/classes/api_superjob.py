@@ -1,4 +1,4 @@
-from abstract_classes import API
+from src.classes.abstract_classes import API
 from utils.search_city_id import search_city_sj
 import requests
 
@@ -10,18 +10,18 @@ class ApiSuperJob(API):
     def __init__(self, city: str, skills: str) -> None:
         """
 
-        :param city: id города
+        :param city: название города
         :param skills: список ключевых слов
         """
         self.params: dict = self.parameters_dict(search_city_sj(city), skills)
 
     @staticmethod
-    def parameters_dict(city: str, profession: str) -> dict:
-        profession_list = profession.split(' ')
+    def parameters_dict(city: str, skills: str) -> dict:
+        profession_list = skills.split(' ')
         if len(profession_list) > 1:
             skills = " and ".join([f"\"{skill}\"" for skill in profession_list])
         else:
-            skills = profession
+            skills = skills
         parameters = {
             "town": city,
             "keywords": skills
@@ -29,7 +29,7 @@ class ApiSuperJob(API):
 
         return parameters
 
-    def api_connect(self, headers: str = None) -> list:
+    def api_connect(self, headers: str = None) -> dict:
         """
 
         :param headers: ключ для работы с API

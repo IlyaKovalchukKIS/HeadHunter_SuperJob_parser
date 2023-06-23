@@ -1,4 +1,4 @@
-from abstract_classes import API
+from src.classes.abstract_classes import API
 from utils.search_city_id import search_city_hh
 import requests
 
@@ -10,7 +10,7 @@ class ApiHeadHunter(API):
     def __init__(self, city: str, skills: str) -> None:
         """
 
-        :param city: id города
+        :param city: название города
         :param skills: список ключевых слов
         """
         self.params = self.parameters_dict(search_city_hh(city), skills)
@@ -28,7 +28,7 @@ class ApiHeadHunter(API):
         }
         return parameters
 
-    def api_connect(self, headers: str = None) -> list:
+    def api_connect(self, headers: str = None) -> dict:
         """
 
         :param headers: ключ для работы с API
