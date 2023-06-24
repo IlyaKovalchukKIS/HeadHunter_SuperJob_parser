@@ -34,7 +34,7 @@ def validate_vacancies_hh(dict_vacancies: dict):
         cleaned_text = re.sub('</?highlighttext>', '', text)
         description += cleaned_text
 
-    return name, url, salary, description
+    return vacancies_format(name, url, salary, description)
 
 
 def validate_vacancies_sj(dict_vacancies):
@@ -64,7 +64,7 @@ def validate_vacancies_sj(dict_vacancies):
         cleaned_string = re.sub(regexp, '', clean_text)
         description += cleaned_string
 
-    return name, url, salary, description
+    return vacancies_format(name, url, salary, description)
 
 
 def vacancies_format(name, url, salary, description):
