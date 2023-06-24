@@ -8,16 +8,23 @@ class API(ABC):
         pass
 
     @abstractmethod
-    def api_connect(self):
+    def api_connect(self, all_vacancies):
         pass
 
 
 class Saver(ABC):
 
+    @classmethod
     @abstractmethod
-    def to_json(self):
+    def load_vacancies_json(cls):
         pass
 
+    @classmethod
     @abstractmethod
-    def del_vacancies(self, index: int):
+    def to_json(cls, all_vacancies):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def del_vacancies(cls, index: int):
         pass
