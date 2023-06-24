@@ -13,7 +13,7 @@ class ApiHeadHunter(API):
         :param city: название города
         :param skills: список ключевых слов
         """
-        self.params = self.parameters_dict(search_city_hh(city), skills)
+        self.params = self.parameters_dict(city, skills)
 
     @staticmethod
     def parameters_dict(city: str, skills: str) -> dict:
