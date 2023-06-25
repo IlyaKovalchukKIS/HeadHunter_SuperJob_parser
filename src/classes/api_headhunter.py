@@ -17,6 +17,12 @@ class ApiHeadHunter(API):
 
     @staticmethod
     def parameters_dict(city: str, skills: str) -> dict:
+        """
+
+        :param city: город
+        :param skills: ключевые слова
+        :return: словарь с параметрами params
+        """
         profession_list = skills.split(' ')
         if len(profession_list) > 1:
             skills = " AND ".join([f"\"{skill}\"" for skill in profession_list])

@@ -5,14 +5,22 @@ class Vacancies:
     __slots__ = ['__format_dict_vacancy', '__name', '__url', '__salary', '__description']
 
     def __init__(self, format_dict_vacancy: dict = None) -> None:
-        self.__name = format_dict_vacancy['name']
-        self.__url = format_dict_vacancy['url']
-        self.__salary = format_dict_vacancy['salary']
-        self.__description = format_dict_vacancy['description']
-        self.all_instance_vacancies.append(self)
-        self.all_list_vacancies.append(format_dict_vacancy)
+        """
+
+        :param format_dict_vacancy: словарь вакансии
+        """
+        self.__name = format_dict_vacancy['name']  # название вакансии
+        self.__url = format_dict_vacancy['url']  # ссылка на вакансию
+        self.__salary = format_dict_vacancy['salary']  # зарплата вакансии
+        self.__description = format_dict_vacancy['description']  # описание вакансии
+        self.all_instance_vacancies.append(self)  # добавление экземпляров класса в список
+        self.all_list_vacancies.append(format_dict_vacancy)  # добавление словаря вакансий в список
 
     def __str__(self) -> str:
+        """
+
+        :return: текстовое представление вакансии класса
+        """
         salary_format = ''
         if self.__salary['from'] == 0 and self.__salary['to'] == 0:
             salary_format += 'Не указана'
@@ -32,5 +40,10 @@ class Vacancies:
 
     @staticmethod
     def salary_comparison(vacancies_file: dict) -> list:
+        """
+
+        :param vacancies_file: словарь со всеми вакансиями
+        :return: словарь отфильтрованных вакансий по максимальной зарплате
+        """
         sort_vacancies = sorted(vacancies_file, key=lambda x: x.get('salary').get('to'), reverse=True)
         return sort_vacancies

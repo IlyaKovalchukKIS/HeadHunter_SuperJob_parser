@@ -2,6 +2,11 @@ import re
 
 
 def validate_vacancies_hh(dict_vacancies: dict):
+    """
+
+    :param dict_vacancies: словарь вакансии полученный с сайта HeadHunter
+    :return: форматированный словарь вакансии для работы с ним в классе Vacancies
+    """
     name = ''
     url = ''
     salary = {'from': 0,
@@ -39,6 +44,11 @@ def validate_vacancies_hh(dict_vacancies: dict):
 
 
 def validate_vacancies_sj(dict_vacancies):
+    """
+
+    :param dict_vacancies: словарь вакансии полученный с сайта SuperJob
+    :return: форматированный словарь вакансии для работы с ним в классе Vacancies
+    """
     name = ''
     url = ''
     salary = {'from': 0,
@@ -71,6 +81,14 @@ def validate_vacancies_sj(dict_vacancies):
 
 
 def vacancies_format(name, url, salary, description):
+    """
+
+    :param name: название вакансии
+    :param url: ссылка на вакансию
+    :param salary: зарплата в вакансии
+    :param description: описание вакансии
+    :return: словарь отформатированной вакансии
+    """
     vacancies = {'name': f"{name}",
                  'url': f"{url}",
                  'salary': salary,
