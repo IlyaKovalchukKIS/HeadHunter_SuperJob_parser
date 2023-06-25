@@ -1,5 +1,5 @@
 from src.classes.abstract_classes import API
-from utils.search_city_id import search_city_sj
+from src.utils.search_city_id import search_city_sj
 import requests
 
 

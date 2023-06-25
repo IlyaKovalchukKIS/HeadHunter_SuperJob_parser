@@ -4,7 +4,8 @@ import re
 def validate_vacancies_hh(dict_vacancies: dict):
     name = ''
     url = ''
-    salary = ''
+    salary = {'from': 0,
+              'to': 0}
     description = ''
 
     if dict_vacancies['name'] is not None:
@@ -13,17 +14,17 @@ def validate_vacancies_hh(dict_vacancies: dict):
         url += dict_vacancies['alternate_url']
     if dict_vacancies['salary'] is not None:
         if dict_vacancies['salary']['from'] is None and dict_vacancies['salary']['to'] is None:
-            salary += 'Не указана'
+            salary['from'] = 0
         elif dict_vacancies['salary']['to'] is None:
-            salary += f"от {dict_vacancies['salary']['from']}"
+            # salary += f"от {dict_vacancies['salary']['from']}"
+            salary['from'] = dict_vacancies['salary']['from']
         elif dict_vacancies['salary']['from'] is None:
-            salary += f"до {dict_vacancies['salary']['to']}"
+            # salary += f"до {dict_vacancies['salary']['to']}"
+            salary['to'] = dict_vacancies['salary']['to']
         else:
-            salary_from = dict_vacancies['salary']['from']
-            salary_to = dict_vacancies['salary']['to']
-            salary += f"от {salary_from} до {salary_to}"
-    else:
-        salary += 'Не указана'
+            salary['from'] = dict_vacancies['salary']['from']
+            salary['to'] = dict_vacancies['salary']['to']
+            # salary += f"от {salary_from} до {salary_to}"
 
     if dict_vacancies['snippet']['responsibility'] is not None:
         text = dict_vacancies['snippet']['responsibility']
@@ -40,7 +41,8 @@ def validate_vacancies_hh(dict_vacancies: dict):
 def validate_vacancies_sj(dict_vacancies):
     name = ''
     url = ''
-    salary = ''
+    salary = {'from': 0,
+              'to': 0}
     description = ''
 
     if dict_vacancies['profession']:
@@ -48,16 +50,17 @@ def validate_vacancies_sj(dict_vacancies):
     if dict_vacancies['link']:
         url += dict_vacancies['link']
     if dict_vacancies['payment_from'] == 0 and dict_vacancies['payment_to'] == 0:
-        salary += 'Не указана'
+        salary['from'] = 0
     elif dict_vacancies['payment_to'] == 0:
-        salary += f"от {dict_vacancies['payment_from']}"
+        # salary += f"от {dict_vacancies['payment_from']}"
+        salary['from'] = dict_vacancies['payment_from']
     elif dict_vacancies['payment_from'] == 0:
-        salary += f"до {dict_vacancies['payment_to']}"
+        # salary += f"до {dict_vacancies['payment_to']}"
+        salary['to'] = dict_vacancies['payment_to']
     else:
-        salary_from = dict_vacancies['payment_from']
-        salary_to = dict_vacancies['payment_to']
-        salary += f"от {salary_from} до {salary_to}"
-
+        salary['from'] = dict_vacancies['payment_from']
+        salary['to'] = dict_vacancies['payment_to']
+        # salary += f"от {salary_from} до {salary_to}"
     if dict_vacancies['vacancyRichText']:
         clean_text = re.sub('/?\n', '', dict_vacancies['vacancyRichText'])
         regexp = re.compile('<.*?>')
@@ -70,6 +73,6 @@ def validate_vacancies_sj(dict_vacancies):
 def vacancies_format(name, url, salary, description):
     vacancies = {'name': f"{name}",
                  'url': f"{url}",
-                 'salary': f"{salary}",
+                 'salary': salary,
                  'description': f"{description}"}
     return vacancies

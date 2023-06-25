@@ -13,8 +13,18 @@ class Vacancies:
         self.all_list_vacancies.append(format_dict_vacancy)
 
     def __str__(self) -> str:
+        salary_format = ''
+        if self.__salary['from'] == 0 and self.__salary['to'] == 0:
+            salary_format += 'Не указана'
+        elif self.__salary['from'] == 0:
+            salary_format += f"до {self.__salary['to']}"
+        elif self.__salary['to'] == 0:
+            salary_format += f"от {self.__salary['from']}"
+        else:
+            salary_format += f"от {self.__salary['from']} до {self.__salary['to']}"
+
         return f"Название: {self.__name}\n" \
-               f"Зарплата: {self.__salary}\n" \
+               f"Зарплата: {salary_format}\n" \
                f"Краткое описание:\n" \
                f"{self.__description}...\n" \
                f"!Для полного отображения вакансии перейдите по ссылке! -> {self.__url}\n" \
@@ -22,5 +32,5 @@ class Vacancies:
 
     @staticmethod
     def salary_comparison(vacancies_file: dict) -> list:
-        sort_vacancies = sorted(vacancies_file, key=lambda x: x['salary'], reverse=True)
+        sort_vacancies = sorted(vacancies_file, key=lambda x: x.get('salary').get('to'), reverse=True)
         return sort_vacancies
