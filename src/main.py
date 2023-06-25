@@ -1,10 +1,8 @@
-from pprint import pprint
-
 from src.classes.api_superjob import ApiSuperJob
 from src.classes.api_headhunter import ApiHeadHunter
 from src.classes.json_saver import JsonSaver
 from src.classes.vacancies import Vacancies
-from utils.validate_vacancies import validate_vacancies_hh, validate_vacancies_sj, vacancies_format
+from src.utils.validate_vacancies import validate_vacancies_hh, validate_vacancies_sj
 import os
 
 if __name__ == '__main__':
@@ -45,12 +43,12 @@ if __name__ == '__main__':
 
         if user_input == '1':
             for index, vacancy in enumerate(Vacancies.all_instance_vacancies):
-                print(f"{index + 1}\n{vacancy}")
+                print({index + 1}, vacancy, sep='\n')
 
         if user_input == '2':
             user_input = input('Введите номер вакансии которую хотите удалить\n'
                                '>>> ')
-            JsonSaver.del_vacancies(index=int(user_input))  # удаление вакансии по индексу
+            JsonSaver.del_vacancies(index=user_input)  # удаление вакансии по индексу
             load_vacancies = JsonSaver.load_vacancies_json()  # загрузка вакансий из файла после удаления
             Vacancies.all_instance_vacancies.clear()  # отчистка списка с вакансиями
             Vacancies.all_list_vacancies.clear()  # отчистка списка экземпляров класса вакансий
