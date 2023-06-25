@@ -21,11 +21,16 @@ class JsonSaver(Saver):
             json.dump(all_vacancies, f, indent=4, ensure_ascii=False)
 
     @classmethod
-    def del_vacancies(cls, index: int) -> None:
+    def del_vacancies(cls, index: str) -> None:
         """Метод для удаления вакансий из файла"""
-        with open(cls.dir_path, 'r') as f:
-            vacancies = json.load(f)
-        del vacancies[int(index) - 1]
+        try:
+            with open(cls.dir_path, 'r') as f:
+                vacancies = json.load(f)
+            del vacancies[int(index) - 1]
 
-        with open(cls.dir_path, 'w') as f:
-            json.dump(vacancies, f, indent=4, ensure_ascii=False)
+            with open(cls.dir_path, 'w') as f:
+                json.dump(vacancies, f, indent=4, ensure_ascii=False)
+        except ValueError:
+            print('!!<< Номер вакансии должен быть целым числом >>!!')
+        except IndexError:
+            print('!!<< Вакансии с таким номером не существует >>!!')
